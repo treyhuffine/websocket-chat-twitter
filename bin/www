@@ -37,7 +37,12 @@ var io = require('socket.io')(server);
 var stream = T.stream('statuses/filter', { track: '#bitcoin' })
 
 stream.on('tweet', function (tweet) {
-  io.emit('chat message', tweet.user.screen_name + ": " + tweet.text);
+  // io.emit('chat message', tweet.user.screen_name + ": " + tweet.text);
+  var user = tweet.user;
+  var ok = user.follower_count > 20 && (user.friends_count/user.followers_count < );
+  if (ok && tweet.text.match(/#angularjs|angualr\.js/i)) {
+    setTimeout(function() { T.post('favorites/create', { id: tweet.id_str }, function() { }) }, 1000);
+  }
 })
 
 io.on('connection', function(socket) {

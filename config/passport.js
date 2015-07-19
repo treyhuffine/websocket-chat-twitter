@@ -38,6 +38,7 @@ module.exports = function(passport) {
     passwordField : 'password',
   },
   function(email, password, done) {
+    console.log(email, password);
     process.nextTick(function() {
       User.findOne({ 'email' :  email }, function(err, user) {
         if (err)
